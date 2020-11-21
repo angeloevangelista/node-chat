@@ -32,4 +32,5 @@ document.getElementById('chat').addEventListener('submit', (event) => {
   renderMessage(messageObject);
 
   socket.emit('sendMessage', messageObject);
+  document.querySelector('input[name=message]').value = '';
 });
