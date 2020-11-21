@@ -3,15 +3,19 @@ import http from 'http';
 import express from 'express';
 import socketio from 'socket.io';
 
-const PORT = process.env.PORT || 3001;
+interface IMessage {
+  author: string;
+  message: string;
+}
 
+let messages: IMessage[] = [];
+
+const PORT = process.env.PORT || 3001;
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
-let messages = [];
 
 io.on('connection', (socket) => {
   socket.emit('previousMessages', messages);
